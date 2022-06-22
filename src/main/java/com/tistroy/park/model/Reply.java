@@ -31,4 +31,5 @@ public class Reply extends BaseEntity {
 	@Column
 	private String activation;
 	
+	
 }

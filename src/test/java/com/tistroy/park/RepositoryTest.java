@@ -18,24 +18,21 @@ import com.tistroy.park.repository.UserRepository;
 public class RepositoryTest {
 	@Autowired
 	private UserRepository userRepository;
-	
+		//회원가입
 //	@Test
 	public void inserttest() {
 			
 		for (int i =0 ; i<100; i++) {
 			
 		User user = User.builder().userid("pkb"+i+"@gmail.com").password("12345").nickname("pkb"+i).point(i*100).lastsignindate(LocalDateTime.now()).build();
-		
-		
 		userRepository.save(user);
 		}
 
 			
 	}
-	
-	@Test
+	// 데이터 수정
+//	@Test
 	public void updateTest() {
-			
 			String userid = "pkb0@gmail.com";
 				Optional<User> optional_id = userRepository.findById(userid);
 			String nickname = "pkb100";
@@ -49,13 +46,19 @@ public class RepositoryTest {
 						System.out.println("닉네임이 정상적으로 변경 되었습니다");
 						userRepository.save(user);
 				}
-			
-			
-			
 				
-			
-				
-			
-		
+	}
+		// 데이터 삭제
+//	@Test
+	public void deleteTest() {
+		Optional<User> optional = userRepository.findById("pkb@gmail.com");
+			if(optional.isPresent()) {
+					User user = optional.get();
+					user.setActivation("F");
+					userRepository.save(user);
+					System.out.println("삭체 요청이 완료되었습니다. 90일 뒤에 삭제 됩니다");	
+			}else {
+				System.out.println("존재하지 않는 계정입니다");
+			}
 	}
 }
